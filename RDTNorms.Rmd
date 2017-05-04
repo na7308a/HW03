@@ -1,0 +1,46 @@
+---
+title: "Truncated Normal: Loops and Conditionals"
+author: "Nana-Ama"
+date: "May 4, 2017"
+output: html_document
+---
+Truncated Normal: Loops and Conditionals
+
+
+```{r setup}
+#explain loops and conditionals 
+rmytnorm <- function(n=1,md=0){ #mode added
+  v <- rep (NA,n)
+  for (i in 1:n) {
+    rmyt <- rnorm (1, mean=md)
+    while (rmyt <0) {
+      rmyt <- rnorm (1, mean=md)
+    }
+    v [i] <- rmyt
+  }
+  return (v)
+  
+}
+
+dmytnorm <-function(x, md=0) {
+  v <- rep(NA,length(x))
+  for (i in 1:length(x)){
+   if (x[i]<0 ) {
+    v[i]=(0)
+     }  else {v[i]<-(2*dnorm(x[i],mean=md))} 
+       #all x below 0 need to be multiplied by 2 to be graphed under curve, further explanation
+  }
+   return (v)}
+#truncated normal is that its impossible to be less than 0 
+```
+```{r call}
+rmytnorm(10)
+dmytnorm (c(-2,-1,0, 1,2))
+hist(rmytnorm(1000))
+#rescaling dmytnorm
+x=seq(from=-2, to=2, by=0.01) #only out of two standard deviations
+y=dmytnorm(x)
+plot(x,y)
+
+#The mean of rnorm and dnorm is approximately equal to the mode of the truncated normal.
+```
