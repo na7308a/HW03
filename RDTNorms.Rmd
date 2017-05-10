@@ -4,12 +4,13 @@ author: "Nana-Ama"
 date: "May 4, 2017"
 output: html_document
 ---
-Truncated Normal: Loops and Conditionals
-
+## Truncated Normal: Loops and Conditionals
+  This project studies Normal random deviates and probability densities using R functions rnorm and dnorm. Here,loops or continually repeated computerized instructions are used until preset conditions are met for the two functions. Rmytnorm and Dmytnorm are two functions that loop rnorm and dnorm respectively to generate positive values of the function. This is done by setting a condition so that any time a negative number appears in the loop, new random numbers are chosen until a positive number appears. 
+  Below, the function of rnorm is called enough times so as to obtain a group of ten random digits from the Normal distribution. For dmytnorm(x), the result is set to zero if x is negative and used when x is positive. Dnorm is rescaled so that the density under the curve equals 1, as we only need two standard deviations below zero. This is done by multiplying the vector of dnorm(x) by two.      Our functions are truncated normals, where the mode is positive and also negative. Modes and lengths of vectors are used to plot the truncated Normals.The mean of rnorm and dnorm is approximately equal to the mode of the truncated normal. In the end, a histogram of the random numbers and a density curve is produced. The graphs show you that there is a condition of not including negative random digits.  
 
 ```{r setup}
 #explain loops and conditionals 
-rmytnorm <- function(n=1,md=0){ #mode added
+rmytnorm <- function(n=1,md=0){ 
   v <- rep (NA,n)
   for (i in 1:n) {
     rmyt <- rnorm (1, mean=md)
@@ -28,19 +29,17 @@ dmytnorm <-function(x, md=0) {
    if (x[i]<0 ) {
     v[i]=(0)
      }  else {v[i]<-(2*dnorm(x[i],mean=md))} 
-       #all x below 0 need to be multiplied by 2 to be graphed under curve, further explanation
+       
   }
    return (v)}
-#truncated normal is that its impossible to be less than 0 
+ 
 ```
 ```{r call}
 rmytnorm(10)
 dmytnorm (c(-2,-1,0, 1,2))
 hist(rmytnorm(1000))
-#rescaling dmytnorm
-x=seq(from=-2, to=2, by=0.01) #only out of two standard deviations
+x=seq(from=-2, to=2, by=0.01) 
 y=dmytnorm(x)
 plot(x,y)
 
-#The mean of rnorm and dnorm is approximately equal to the mode of the truncated normal.
 ```
